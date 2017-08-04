@@ -20,7 +20,7 @@ namespace ReportFault.Web
             }
 
             var directoryInfo = new DirectoryInfo(coreAssemblyDirectoryPath);
-            while (!DirectoryContains(directoryInfo.FullName, "ReportFault.sln"))
+            while (!DirectoryContains(directoryInfo.FullName, "ReportFaultPlatform.sln"))
             {
                 if (directoryInfo.Parent == null)
                 {
@@ -30,13 +30,13 @@ namespace ReportFault.Web
                 directoryInfo = directoryInfo.Parent;
             }
 
-            var webMvcFolder = Path.Combine(directoryInfo.FullName, "src", "ReportFault.Web.Mvc");
+            var webMvcFolder = Path.Combine(directoryInfo.FullName, "ReportFault.Web.Mvc");
             if (Directory.Exists(webMvcFolder))
             {
                 return webMvcFolder;
             }
 
-            var webHostFolder = Path.Combine(directoryInfo.FullName, "src", "ReportFault.Web.Host");
+            var webHostFolder = Path.Combine(directoryInfo.FullName, "ReportFault.Web.Host");
             if (Directory.Exists(webHostFolder))
             {
                 return webHostFolder;

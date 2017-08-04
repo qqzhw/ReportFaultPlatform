@@ -11,9 +11,10 @@ using Abp.Notifications;
 namespace ReportFault.Migrations
 {
     [DbContext(typeof(ReportFaultDbContext))]
-    partial class ReportFaultDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170804023128_20170804103100_Initial_Migrations")]
+    partial class _20170804103100_Initial_Migrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
