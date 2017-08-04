@@ -2,9 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Abp.Runtime.Security;
-using ReportFault.Authentication.External;
-using ReportFault.Authentication.External.Facebook;
-using ReportFault.Authentication.External.Google;
+using ReportFault.Authentication.External; 
 using ReportFault.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -30,29 +28,29 @@ namespace ReportFault.Web.Host.Startup
 
             var externalAuthConfiguration = app.ApplicationServices.GetRequiredService<ExternalAuthConfiguration>();
 
-            if (bool.Parse(configuration["Authentication:Facebook:IsEnabled"]))
-            {
-                externalAuthConfiguration.Providers.Add(
-                    new ExternalLoginProviderInfo(
-                        FacebookAuthProviderApi.Name,
-                        configuration["Authentication:Facebook:AppId"],
-                        configuration["Authentication:Facebook:AppSecret"],
-                        typeof(FacebookAuthProviderApi)
-                    )
-                );
-            }
+            //if (bool.Parse(configuration["Authentication:Facebook:IsEnabled"]))
+            //{
+            //    externalAuthConfiguration.Providers.Add(
+            //        new ExternalLoginProviderInfo(
+            //            FacebookAuthProviderApi.Name,
+            //            configuration["Authentication:Facebook:AppId"],
+            //            configuration["Authentication:Facebook:AppSecret"],
+            //            typeof(FacebookAuthProviderApi)
+            //        )
+            //    );
+            //}
 
-            if (bool.Parse(configuration["Authentication:Google:IsEnabled"]))
-            {
-                externalAuthConfiguration.Providers.Add(
-                    new ExternalLoginProviderInfo(
-                        GoogleAuthProviderApi.Name,
-                        configuration["Authentication:Google:ClientId"],
-                        configuration["Authentication:Google:ClientSecret"],
-                        typeof(GoogleAuthProviderApi)
-                    )
-                );
-            }
+            //if (bool.Parse(configuration["Authentication:Google:IsEnabled"]))
+            //{
+            //    externalAuthConfiguration.Providers.Add(
+            //        new ExternalLoginProviderInfo(
+            //            GoogleAuthProviderApi.Name,
+            //            configuration["Authentication:Google:ClientId"],
+            //            configuration["Authentication:Google:ClientSecret"],
+            //            typeof(GoogleAuthProviderApi)
+            //        )
+            //    );
+            //}
         }
 
         private static JwtBearerOptions CreateJwtBearerAuthenticationOptions(IApplicationBuilder app)

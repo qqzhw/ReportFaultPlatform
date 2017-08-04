@@ -40,4 +40,7 @@
     <PackageReference Include="Abp.Web.SignalR" Version="2.1.2" />
     <PackageReference Include="Abp.Owin" Version="2.1.2" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Authentication\External\QQ\" />
+  </ItemGroup>
 </Project>

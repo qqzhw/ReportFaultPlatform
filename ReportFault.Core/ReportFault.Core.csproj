@@ -12,7 +12,8 @@
     <RootNamespace>ReportFault</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Localization\SourceFiles\*.xml" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+    <EmbeddedResource Include="Localization\SourceFiles\ReportFault-zh-CN.xml" />
+    <EmbeddedResource Include="Localization\SourceFiles\ReportFault.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Abp.AutoMapper" Version="2.2.1" />
