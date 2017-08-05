@@ -20,37 +20,43 @@
     Layout = null;
     AbpAntiForgeryManager.SetCookie(Context);
     var uiTheme = await SettingManager.GetSettingValueAsync(AppSettingNames.UiTheme);
-
+    const string hideSidebarAttributeName = "HideSidebar";
 }
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <link rel="shortcut icon" href="~/favicon.ico">
-
     <title>一键报障平台</title>
-
     <environment names="Development">
         <link href="~/fonts/roboto/roboto.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/fonts/material-icons/materialicons.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
+       <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/lib/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" asp-append-version="true" />
-      
+
         <link href="~/lib/sweetalert/dist/sweetalert.css" rel="stylesheet" asp-append-version="true" />
-        
+
         <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" asp-append-version="true" />
-       
+
         <link href="~/lib/animate.css/animate.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/css/materialize.css" rel="stylesheet" asp-append-version="true" />
+     
+        <link href="~/css/admin/styles.css" rel="stylesheet" asp-append-version="true">
+        <link href="~/lib/adminLTE/AdminLTE-2.3.0.min.css" rel="stylesheet" asp-append-version="true">
+        <link href="~/lib/adminLTE/skins/_all-skins.min.css" rel="stylesheet" asp-append-version="true">
         <link href="~/css/style.css" rel="stylesheet" asp-append-version="true">
-        <link href="~/css/themes/all-themes.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/view-resources/Views/Shared/_Layout.css" rel="stylesheet" asp-append-version="true" />
+        <script src="~/lib/jquery-1.10.2.min.js" asp-append-version="true"></script>
+        <script src="~/lib/adminLTE/app.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery-ui-1.10.3.custom.min.js" asp-append-version="true"></script>
+
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        @*<script src="~/js/admin.search.js" asp-append-version="true"></script>*@
+        <script src="~/js/admin.navigation.js" asp-append-version="true"></script>
+        <script src="~/js/admin.common.js" asp-append-version="true"></script>
+
     </environment>
 
     <environment names="Staging,Production">
@@ -67,8 +73,7 @@
     </script>
 
 </head>
-<body class="@("theme-" + uiTheme)">
-
+<body class="hold-transition skin-blue sidebar-mini">
     <!-- Page Loader -->
     <div class="page-loader-wrapper">
         <div class="loader">
@@ -90,43 +95,27 @@
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
     <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
-    </div>
+    @*<div class="search-bar">
+            <div class="search-icon">
+                <i class="material-icons">search</i>
+            </div>
+            <input type="text" placeholder="START TYPING...">
+            <div class="close-search">
+                <i class="material-icons">close</i>
+            </div>
+        </div>*@
     <!-- #END# Search Bar -->
     <!-- Top Bar -->
-    <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><i class="fa fa-cubes"></i> ReportFault</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Call Search -->
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                    <!-- #END# Call Search -->
+    @*@await Component.InvokeAsync(typeof(TopBarLanguageSwitchViewComponent))*@
 
-                    @await Component.InvokeAsync(typeof(TopBarLanguageSwitchViewComponent))
+    @*@await Component.InvokeAsync(typeof(SideBarUserAreaViewComponent))
+        @await Component.InvokeAsync(typeof(SideBarNavViewComponent), new { activeMenu = ViewBag.CurrentPageName })*@
 
-                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
     <!-- #Top Bar -->
-    <section>
+    @*  <section>
         <aside id="leftsidebar" class="sidebar">
 
-            @await Component.InvokeAsync(typeof(SideBarUserAreaViewComponent))
-            @await Component.InvokeAsync(typeof(SideBarNavViewComponent), new { activeMenu = ViewBag.CurrentPageName })
 
             <!-- Footer -->
             <div class="legal">
@@ -137,44 +126,219 @@
                     <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]
                 </div>
             </div>
-            <!-- #Footer -->
-        </aside>
+                <!-- #Footer -->
+            </aside>
 
-        @await Component.InvokeAsync(typeof(RightSideBarViewComponent))
+            @await Component.InvokeAsync(typeof(RightSideBarViewComponent))
 
-    </section>
-
-    <section class="content">
-        <div class="container-fluid">
-            @RenderBody()
+        </section>*@
+    <div class="throbber">
+        <div class="curtain">
         </div>
-    </section>
+        <div class="curtain-content">
+            <div>
+                <h1 class="throbber-header">"正在加载..."</h1>
+                <p>
+                    <img src="@Url.Content("~/css/admin/images/throbber-synchronizing.gif")" alt="" />
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="ajaxBusy">
+        <span>&nbsp;</span>
+    </div>
+    <div class="wrapper">
+        @*@if (IsSectionDefined("header"))
+                {
+                @RenderSection("header")
+            }*@
+
+
+        @*// @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_header_before" })*@
+        <div class="main-header">
+            <a href="@Url.Content("~/Admin")" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"></span>
+            </a>
+            <div class="navbar navbar-static-top" role="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">&nbsp;</span>
+                </a>
+                @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_header_toggle_after" })*@
+                <div class="navbar-custom-menu">
+                    @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_header_navbar_before" })*@
+                    <ul class="nav navbar-nav">
+                        <li>
+                            @*@await Component.InvokeAsync("AdminLanguageSelector")*@
+                        </li>
+
+                        <li class="account-info">
+                            currentCustomer
+                        </li>
+                        <li>
+                            <a asp-controller="Customer" asp-action="Logout" asp-area="">"Admin.Header.Logout"</a>
+                        </li>
+
+                        <li>
+                            @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_header_middle" })*@
+                        </li>
+                        <li>
+                            <a asp-controller="Home" asp-action="Index" asp-area="">"Admin.Header.PublicStore</a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown"><i class="fa fa-gears"></i></a>
+                            <ul class="maintenance-menu dropdown-menu bg-light-blue" role="menu">
+                                <li>
+                                    <form asp-controller="Common" asp-action="ClearCache" asp-area="Admin">
+                                        <input name="returnurl" type="hidden" value="rawUrl">
+                                        <button type="submit" class="bg-light-blue">
+                                            <span>"Admin.Header.ClearCache"</span>
+                                        </button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form asp-controller="Common" asp-action="RestartApplication" asp-area="Admin">
+                                        <input name="returnurl" type="hidden" value="ggg">
+                                        <button id="restart-application" type="submit" class="bg-light-blue">
+                                            <span>("Admin.Header.RestartApplication")</span>
+                                        </button>
+                                        <script type="text/javascript">
+                                            $(document).ready(function () {
+                                                $("#restart-application").click(function (e) {
+                                                    showThrobber('Admin.Header.RestartApplication.Progress"');
+                                                });
+                                            });
+                                        </script>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_header_navbar_after" })*@
+                </div>
+            </div>
+        </div>
+        @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_header_after" })*@
+
+
+        @*@RenderSection("headermenu")*@
+
+
+
+        <div class="main-sidebar">
+            <div class="sidebar">
+                @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_searchbox_before" })*@
+                <div class="sidebar-form">
+                    <div id="search-box">
+                        <input type="text" class="form-control admin-search-box typeahead" placeholder="Admin.Menu.Search">
+                    </div>
+                </div>
+                <script>
+                            //$(document).ready(function () {
+                            //                                Admin.Search.init();
+                            //                            });
+                </script>
+                @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_menu_before" })*@
+                @*@await Html.PartialAsync("Menu")*@
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            @*@await Html.PartialAsync("Notifications")*@
+            <div>
+                @RenderBody()
+            </div>
+        </div>
+        <div class="main-footer clearfix">
+            @{
+                @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                    Please find more info at https://www.nopcommerce.com/copyrightremoval.aspx*@
+                <div class="pull-left">
+                    Powered by <a href="https://www.nopcommerce.com/?utm_source=admin-panel&utm_medium=footer&utm_campaign=admin-panel" target="_blank">nopCommerce</a>
+                </div>
+            }
+            <div class="pull-right hidden-xs">
+                <b>nopCommerce version opVersion.CurrentVersion</b>
+            </div>
+            <div class="text-center">
+                @{
+                    var currentCulture = new CultureInfo("zh-CN");
+                }
+                @DateTime.Now.ToString("f")
+            </div>
+        </div>
+
+        <div class="main-footer clearfix">
+
+            @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                Please find more info at https://www.nopcommerce.com/copyrightremoval.aspx*@
+            <div class="pull-left">
+                Powered by <a href="https://www.nopcommerce.com/?utm_source=admin-panel&utm_medium=footer&utm_campaign=admin-panel" target="_blank">nopCommerce</a>
+            </div>
+
+            <div class="pull-right hidden-xs">
+                <b>nopCommerce version CurrentVersion</b>
+            </div>
+            <div class="text-center">
+                @DateTime.Now.ToString("f")
+            </div>
+        </div>
+
+
+
+    </div>
+    <script>
+                                            var AdminLTEOptions = {
+                                                boxWidgetOptions: {
+                                                    boxWidgetIcons: {
+                                                        collapse: 'fa-minus',
+                                                        open: 'fa-plus'
+                                                    }
+                                                }
+                                            };  
+    </script>
+    <a id="backTop" class="btn btn-back-top bg-teal"></a>
+    <script>
+            $(document).ready(function () {
+                $('#backTop').backTop();
+
+                $('a.sidebar-toggle').on('click', function () {
+                    var collapsed = $('body').hasClass('sidebar-collapse');
+                    saveUserPreferences('@(Url.Action("SavePreference", "Preferences"))', '@hideSidebarAttributeName', collapsed);
+                });
+            });
+    </script>
+    @*<section class="content">
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </section>*@
 
     <environment names="Development">
         <script src="~/lib/json2/json2.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        @*<script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>*@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
-     
+
         <script src="~/lib/jquery-validation/dist/jquery.validate.js" asp-append-version="true"></script>
         <script src="~/lib/blockUI/jquery.blockUI.js" asp-append-version="true"></script>
-      
-        <script src="~/lib/sweetalert/dist/sweetalert-dev.js" asp-append-version="true"></script>
-        <script src="~/lib/spin.js/spin.js" asp-append-version="true"></script>
-        <script src="~/lib/spin.js/jquery.spin.js" asp-append-version="true"></script>
-        <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery-slimscroll/jquery.slimscroll.js" asp-append-version="true"></script>
-      
+
+
         <script src="~/lib/push.js/push.js" asp-append-version="true"></script>
         <script src="~/lib/abp-web-resources/Abp/Framework/scripts/abp.js" asp-append-version="true"></script>
-        <script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js" asp-append-version="true"></script>
-       
-        <script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js" asp-append-version="true"></script>
-        <script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js" asp-append-version="true"></script>
-        <script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js" asp-append-version="true"></script>
+        @*<script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.jquery.js" asp-append-version="true"></script>*@
+
+        @*<script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js" asp-append-version="true"></script>
+            <script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js" asp-append-version="true"></script>
+            <script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js" asp-append-version="true"></script>*@
         <script src="~/js/admin.js"></script>
         <script src="~/js/main.js" asp-append-version="true"></script>
-        <script src="~/view-resources/Views/Shared/_Layout.js" asp-append-version="true"></script>
-        
+        @*<script src="~/view-resources/Views/Shared/_Layout.js" asp-append-version="true"></script>*@
+
+
         @if (SignalRFeature.IsAvailable)
         {
             <script src="~/lib/signalr/jquery.signalR.js" asp-append-version="true"></script>
@@ -185,7 +349,7 @@
         <script src="~/view-resources/Views/_Bundles/shared-layout.min.js" asp-append-version="true"></script>
     </environment>
 
-  
+
 
     <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
     <script src="~/AbpServiceProxies/GetAll?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>

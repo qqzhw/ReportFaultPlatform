@@ -18,8 +18,7 @@ namespace ReportFault.Web.Controllers
         {
             _roleAppService = roleAppService;
         }
-
-
+         
         public async Task<IActionResult> Index()
         {
             var roles = (await _roleAppService.GetAll(new PagedAndSortedResultRequestDto())).Items;

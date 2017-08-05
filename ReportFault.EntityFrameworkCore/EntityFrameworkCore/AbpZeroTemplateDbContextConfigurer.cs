@@ -6,7 +6,7 @@ namespace ReportFault.EntityFrameworkCore
     {
         public static void Configure(DbContextOptionsBuilder<ReportFaultDbContext> builder, string connectionString)
         {
-            builder.UseSqlServer(connectionString);
+            builder.UseSqlServer(connectionString,c=>c.UseRowNumberForPaging());
         }
     }
 }
