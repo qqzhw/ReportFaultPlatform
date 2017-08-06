@@ -37,7 +37,8 @@
         <link href="~/fonts/material-icons/materialicons.css" rel="stylesheet" asp-append-version="true" />
        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/lib/bootstrap-select/dist/css/bootstrap-select.css" rel="stylesheet" asp-append-version="true" />
-
+        <link href="~/lib/typeahead/typeahead.css" rel="stylesheet" asp-append-version="true" />
+      
         <link href="~/lib/sweetalert/dist/sweetalert.css" rel="stylesheet" asp-append-version="true" />
 
         <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" asp-append-version="true" />
@@ -51,9 +52,10 @@
         <script src="~/lib/jquery-1.10.2.min.js" asp-append-version="true"></script>
         <script src="~/lib/adminLTE/app.min.js" asp-append-version="true"></script>
         <script src="~/lib/jquery-ui-1.10.3.custom.min.js" asp-append-version="true"></script>
-
+      
+        <script src="~/lib/typeahead/typeahead.bundle.min.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
-        @*<script src="~/js/admin.search.js" asp-append-version="true"></script>*@
+        <script src="~/js/admin.search.js" asp-append-version="true"></script>
         <script src="~/js/admin.navigation.js" asp-append-version="true"></script>
         <script src="~/js/admin.common.js" asp-append-version="true"></script>
 
@@ -173,7 +175,7 @@
                         <li>
                             @*@await Component.InvokeAsync("AdminLanguageSelector")*@
                         </li>
-
+                        @await Component.InvokeAsync(typeof(TopBarLanguageSwitchViewComponent))
                         <li class="account-info">
                             currentCustomer
                         </li>
@@ -238,13 +240,17 @@
                     </div>
                 </div>
                 <script>
-                            //$(document).ready(function () {
-                            //                                Admin.Search.init();
-                            //                            });
+                            $(document).ready(function () {
+                                                            Admin.Search.init();
+                                                        });
                 </script>
                 @*@await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_menu_before" })*@
                 @*@await Html.PartialAsync("Menu")*@
-            </div>
+           
+                   
+                    @await Component.InvokeAsync(typeof(SideBarNavViewComponent), new { activeMenu = ViewBag.CurrentPageName })
+                  
+</div>
         </div>
 
         <div class="content-wrapper">
@@ -253,42 +259,17 @@
                 @RenderBody()
             </div>
         </div>
-        <div class="main-footer clearfix">
-            @{
-                @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
-                    Please find more info at https://www.nopcommerce.com/copyrightremoval.aspx*@
-                <div class="pull-left">
-                    Powered by <a href="https://www.nopcommerce.com/?utm_source=admin-panel&utm_medium=footer&utm_campaign=admin-panel" target="_blank">nopCommerce</a>
-                </div>
-            }
-            <div class="pull-right hidden-xs">
-                <b>nopCommerce version opVersion.CurrentVersion</b>
+        <div class="main-footer clearfix">           
+                 <div class="pull-left">
+                    Powered by <a href="#" target="_blank">文哥</a>
+                </div>           
+            <div class="pull-right hidden-xs">               
+                <b>Version </b> @AppVersionHelper.Version [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]
             </div>
-            <div class="text-center">
-                @{
-                    var currentCulture = new CultureInfo("zh-CN");
-                }
+            <div class="text-center">               
                 @DateTime.Now.ToString("f")
             </div>
         </div>
-
-        <div class="main-footer clearfix">
-
-            @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
-                Please find more info at https://www.nopcommerce.com/copyrightremoval.aspx*@
-            <div class="pull-left">
-                Powered by <a href="https://www.nopcommerce.com/?utm_source=admin-panel&utm_medium=footer&utm_campaign=admin-panel" target="_blank">nopCommerce</a>
-            </div>
-
-            <div class="pull-right hidden-xs">
-                <b>nopCommerce version CurrentVersion</b>
-            </div>
-            <div class="text-center">
-                @DateTime.Now.ToString("f")
-            </div>
-        </div>
-
-
 
     </div>
     <script>
@@ -362,7 +343,7 @@
         <script src="~/lib/abp-web-resources/Abp/Framework/scripts/libs/abp.signalr.js" type="text/javascript"></script>
     }
 
-    @WebResourceManager.RenderScripts();
+    @WebResourceManager.RenderScripts()
 
     <!-- View specific scripts -->
     @RenderSection("scripts", required: false)

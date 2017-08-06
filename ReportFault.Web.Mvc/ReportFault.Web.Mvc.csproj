@@ -764,6 +764,8 @@
     <Content Include="wwwroot\lib\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="wwwroot\lib\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="wwwroot\lib\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="wwwroot\lib\typeahead\typeahead.bundle.min.js" />
+    <Content Include="wwwroot\lib\typeahead\typeahead.css" />
     <Content Include="wwwroot\view-resources\Views\Roles\Index.js" />
     <Content Include="wwwroot\view-resources\Views\Roles\_EditRoleModal.js" />
     <Content Include="wwwroot\view-resources\Views\Shared\_Layout.js" />
